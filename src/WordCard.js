@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import CharacterCard from './CharacterCard';
-
 import _, { attempt } from 'lodash';
+
+var temp = 3; 
+var word = ""; 
+var reload = 0;
 const prepareStateFromWord = (given_word) => {
     let word = given_word.toUpperCase()
     let chars = _.shuffle(Array.from(word))
@@ -9,6 +12,7 @@ const prepareStateFromWord = (given_word) => {
         word,
         chars,
         attempt: 1,
+        count: 3,
         guess: '',
         completed: false
     }
@@ -22,27 +26,55 @@ export default function WordCard(props){
         console.log(`${c} has been activated.`) 
 
         let guess = state.guess + c
+        console.log(guess)
+
         setState({...state, guess: guess})
 
         if(guess.length == state.word.length){
             if(guess == state.word){
                 console.log('yeah!')
-                setState({...state, guess: '', completed: true})
+                setState({...state, completed: true})
+                window.location.reload(false);
             }else{
                 console.log('reset')
-                setState({...state, guess: '', attempt: state.attempt + 1})
+                state.count -= 1;
+                setState({...state, guess: '' , attempt: state.attempt + 1})
             }
+        }
+        temp = state.count;
+        if(temp == 0){
+            word = props.value;
+        }
+        if(reload >= 1) {
+            reload = 0;
+            window.location.reload(true);
         } 
-        console.log(guess)
     }
 
-    return (
-        <div>
-            { 
-                state.chars.map((c, i) => 
-                    <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt}/>
-                ) 
-            }
-        </div>
-    );
+    if(temp == 0){
+        reload++;
+        return (
+            <div>
+                    <div id="Result">The word is: {word}    -- Click any letter to play again --</div>
+                    {
+                    state.chars.map((c, i) => 
+                        <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt}/>
+                    ) 
+                }
+            </div>
+        );
+    }
+    else {
+        return (
+            <div>
+                    <div id="Result">You can try : {temp} round.</div>
+                    {
+                    state.chars.map((c, i) => 
+                        <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt}/>
+                    ) 
+                }
+            </div>
+        );
+    }
+    
 }
