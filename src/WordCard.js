@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CharacterCard from './CharacterCard';
 import _, { attempt } from 'lodash';
 
-var temp = 3; 
+var temp = 5; 
 var word = ""; 
 var reload = 0;
 const prepareStateFromWord = (given_word) => {
@@ -12,7 +12,7 @@ const prepareStateFromWord = (given_word) => {
         word,
         chars,
         attempt: 1,
-        count: 3,
+        count: 5,
         guess: '',
         completed: false
     }
