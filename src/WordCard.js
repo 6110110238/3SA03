@@ -34,11 +34,13 @@ export default function WordCard(props){
             if(guess == state.word){
                 console.log('yeah!')
                 setState({...state, completed: true})
+                alertWin(props.value)
                 window.location.reload(false);
             }else{
                 console.log('reset')
                 state.count -= 1;
                 setState({...state, guess: '' , attempt: state.attempt + 1})
+                alertLose()
             }
         }
         temp = state.count;
@@ -76,5 +78,11 @@ export default function WordCard(props){
             </div>
         );
     }
-    
+
+    function alertWin(word) {
+        alert("Congratulations !" + "\nThe word is: " + word);
+    }
+    function alertLose() {
+        alert("Let's try again");
+    }
 }
