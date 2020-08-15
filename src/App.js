@@ -18,10 +18,18 @@ function App() {
   return (
     <div id="Card Game">
       <header className="App-header">
+        <img src="https://sv1.picz.in.th/images/2020/08/15/EAWbCy.md.png"/>
+        <p>Game Card!</p>
         <WordCard value={word}/>
+        <button onClick={refreshPage}><img src="https://sv1.picz.in.th/images/2020/08/15/EAWvhP.png"/></button> 
+        <img src="https://sv1.picz.in.th/images/2020/08/15/EAdF4a.md.png"/>
       </header>
     </div>
   );
+}
+
+function refreshPage() {
+  window.location.reload(false);
 }
 
 export default App;
