@@ -16,8 +16,10 @@ switch (randWord) {
 
 function App() {
   return (
-    <div>
-      <WordCard value={word}/>
+    <div id="Card Game">
+      <header className="App-header">
+        <WordCard value={word}/>
+      </header>
     </div>
   );
 }
